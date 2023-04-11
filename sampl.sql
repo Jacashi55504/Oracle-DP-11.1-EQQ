@@ -27,7 +27,7 @@ WHERE LENGTH(first_name) IN
  FROM employees)
 
 -- 5. Create a list of weekly salaries from the employees table where the weekly salary is between 700 and 3000.
-–- The salaries should be formatted to include a $ sign and have two decimal points like: $9999.99
+-- The salaries should be formatted to include a $ sign and have two decimal points like: $9999.99
 
 SELECT TO_CHAR(salary, '$999,999.99') AS "Weekly Salary"
 FROM employees
