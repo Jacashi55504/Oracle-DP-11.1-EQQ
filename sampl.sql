@@ -116,5 +116,25 @@ FROM employees;
 -- 18.Create a list of department names and the departmental costs (salaries added up).
 -- Include only departments whose salary costs are between 15000 and 31000, and sort the listingby the cost.
 
+-- 19. Show the highest average salary for the departments in the employees table.
+-- Round the result to the nearest whole number
 
+-- 20. Create a list of department names and their monthly costs (salaries added up).
+
+-- 21. Create a list of department names, and job_ids.
+-- Calculate the monthly salary cost for each job_id within a department, for each department, and for all departments added together.
+
+-- 22. Create a list of department names, and job_ids.
+-- Calculate the monthly salary costfor each job_id within a department, for each department, for each group of job_ids irrespective of the department, and for all departments added together. (Hint: Cube)
+
+-- 23. Expand the previous list to also show if the department_id or job_id was used to create the subtotals shown in the output. (Hint: Cube, Grouping)
+
+-- 24. Create a list that includes the monthly salary costs for each job title within a department.
+-- In the same list, display the monthly salary cost per city. (Hint: Grouping Sets)
+
+-- 25. Create a list of employee names as shown and department ids.
+-- In the same report, list the department ids and department names. And finally, list the cities.
+-- The rows should not be joined, just listed in the same report. (Hint: Union)
+
+-- 26. Create a list of each employee's first initial and last name, salary, and department name for each employee earning more than the average for his department.
 
