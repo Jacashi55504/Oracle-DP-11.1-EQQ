@@ -1,4 +1,4 @@
-/* 1. Create a list that includes the first initial of every employee's first name, a space, and the last name of the employee. */
+-- 1. Create a list that includes the first initial of every employee's first name, a space, and the last name of the employee. */
 
 SELECT table_name
 FROM user_tables
