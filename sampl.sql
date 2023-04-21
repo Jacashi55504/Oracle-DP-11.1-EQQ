@@ -100,6 +100,42 @@ SELECT e.last_name, d.department_name
 FROM employees e RIGHT OUTER JOIN departments d
 ON (e.department_id = d.department_id);
 
+-- 16. Create a treewalking list of every employee's last name, his manager's last name, and his position in the company.
+-- The top level manager has position 1, this manager's subordinates position 2, their subordinates position 3, and so on.
+-- Start the listing with employee number 100.
+
+SELECT LEVEL AS "Position", e.last_name, PRIOR e.last_name AS "Manager name"
+FROM employees e START WITH e.employee_id = 100                                    -- NMC
+CONNECT BY PRIOR e.employee_id = e.manager_id;
+
+-- 17. Produce a list of the earliest hire date, the latest hire date, and the number of employees from the employees table
+SELECT MIN(hire_date) AS "Lowest", MAX(hire_date) AS "Highest", COUNT(employee_id) AS "No of employees"
+FROM employees;
+
+-- 18.Create a list of department names and the departmental costs (salaries added up).
+-- Include only departments whose salary costs are between 15000 and 31000, and sort the listingby the cost.
+
+-- 19. Show the highest average salary for the departments in the employees table.
+-- Round the result to the nearest whole number
+
+-- 20. Create a list of department names and their monthly costs (salaries added up).
+
+-- 21. Create a list of department names, and job_ids.
+-- Calculate the monthly salary cost for each job_id within a department, for each department, and for all departments added together.
+
+-- 22. Create a list of department names, and job_ids.
+-- Calculate the monthly salary costfor each job_id within a department, for each department, for each group of job_ids irrespective of the department, and for all departments added together. (Hint: Cube)
+
+-- 23. Expand the previous list to also show if the department_id or job_id was used to create the subtotals shown in the output. (Hint: Cube, Grouping)
+
+-- 24. Create a list that includes the monthly salary costs for each job title within a department.
+-- In the same list, display the monthly salary cost per city. (Hint: Grouping Sets)
+
+-- 25. Create a list of employee names as shown and department ids.
+-- In the same report, list the department ids and department names. And finally, list the cities.
+-- The rows should not be joined, just listed in the same report. (Hint: Union)
+
+-- 26. Create a list of each employee's first initial and last name, salary, and department name for each employee earning more than the average for his department.
 
 
 
