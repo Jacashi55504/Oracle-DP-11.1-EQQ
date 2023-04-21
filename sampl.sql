@@ -1,3 +1,4 @@
+```ruby
 
 -- 1. Create a list that includes the first initial of every employee's first name, a space, and the last name of the employee.
 
@@ -138,3 +139,4 @@ FROM employees;
 
 -- 26. Create a list of each employee's first initial and last name, salary, and department name for each employee earning more than the average for his department.
 
+```
