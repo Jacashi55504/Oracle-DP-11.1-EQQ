@@ -33,7 +33,7 @@ SELECT TO_CHAR(salary, '$999,999.99') AS "Weekly Salary"
 FROM employees
 WHERE salary BETWEEN 700 AND 3000;
 
--- 6. – Create a list of every employee and his related job title sorted by job_title. 
+-- 6. Create a list of every employee and his related job title sorted by job_title. 
 
 SELECT SUBSTR(first_name, 1, 1) || ' ' || last_name as "Employee name", job_title AS "Job"
 FROM employees NATURAL JOIN jobs;
@@ -44,7 +44,7 @@ FROM employees NATURAL JOIN jobs;
 SELECT SUBSTR(e.first_name, 1, 1) || ' ' || e.last_name AS "Employee name", job_title AS "Job", j.min_salary || ' - ' || j.max_salary AS "Salary range", e.salary AS "Employee's salary"
 FROM employees e INNER JOIN jobs j USING (JOB_ID);
  
--- 8. – Using an ANSII join method, create a list of every employee's first initial and last name, and department name.
+-- 8. Using an ANSII join method, create a list of every employee's first initial and last name, and department name.
 -- Make sure the tables are joinedon all of the foreign keys declared between the two tables.
  
 SELECT CONCAT(SUBSTR(first_name, 1, 1), last_name) AS "Employee Name", department_name AS "Department Name"
