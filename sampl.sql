@@ -1,4 +1,4 @@
--- 1. Create a list that includes the first initial of every employee's first name, a space, and the last name of the employee. */
+-- 1. Create a list that includes the first initial of every employee's first name, a space, and the last name of the employee.
 
 SELECT table_name
 FROM user_tables
@@ -123,14 +123,12 @@ GROUP BY d.department_name
 HAVING SUM(e.salary) BETWEEN 15000 AND 31000
 ORDER BY d.department_name;
 
+-- 19. Create a list of department names, the manager id, manager name (employee last name) of that department, and the average salary in each department.
 
--- 19. Show the highest average salary for the departments in the employees table.
+-- 20. Show the highest average salary for the departments in the employees table.
 -- Round the result to the nearest whole number
 
--- 20. Create a list of department names and their monthly costs (salaries added up).
-
--- 21. Show the highest average salary for the departments in the employees table.
--- Round the result to the nearest whole number
+-- 21. Create a list of department names and their monthly costs (salaries added up).
 
 -- 22. Create a list of department names, and job_ids.
 -- Calculate the monthly salary cost for each job_id within a department, for each department, and for all departments added together.
