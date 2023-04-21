@@ -108,7 +108,7 @@ SELECT LEVEL AS "Position", e.last_name, PRIOR e.last_name AS "Manager name"
 FROM employees e START WITH e.employee_id = 100                                    -- NMC
 CONNECT BY PRIOR e.employee_id = e.manager_id;
 
--- 17. Produce a list of the earliest hire date, the latest hire date, and the number of employees from the employees table
-SELECT MIN(hire_date) AS "Lowest", MAX(hire_date) AS "Highest", COUNT(employee_id) AS "No of employees"
-FROM employees;
+
+
+
 
