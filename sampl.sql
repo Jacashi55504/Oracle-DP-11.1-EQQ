@@ -67,4 +67,39 @@ SELECT SUBSTR(first_name, 1, 1) || ' ' || last_name AS "Employee name", salary A
 NVL2(commission_pct, 'No', 'Yes') AS "Commission"
 FROM employees;
 
+-- 12. Create a list of every employee's last name, department name, city, and state_province.
+-- Include departments without employees.
+
+SELECT e.last_name, d.department_name, l.city, l.state_province
+FROM employees e LEFT OUTER JOIN departments d
+ ON (e.department_id = d.department_id)
+LEFT OUTER JOIN locations l
+ ON (d.location_id = l.location_id);
+ 
+-- 13. Create a list of every employee's first and last names, and the first occurrence of: commission_pct, manager_id, or -1.
+-- If an employee gets commission, display the commission_pct column; if no commission, then display his manager_id; if he has neither commission nor manager, then the number -1.
+
+SELECT first_name AS "First name", last_name AS "Last name",
+CASE 
+ WHEN commission_pct > 0 THEN commission_pct
+ WHEN commission_pct = NULL THEN manager_id
+ ELSE -1 
+END AS "Which Function?"
+FROM employees;
+
+-- 14. Create a list of every employee's last name, salary, and job_grade for all employees working in departments with a department_id greater than 50.
+
+SELECT last_name, salary, grade_level
+FROM employees NATURAL JOIN job_grades
+WHERE department_id > 50;
+
+-- 15. Produce a list of every employee's last name and department name.
+--Include both employees without departments, and departments without employees.
+
+SELECT e.last_name, d.department_name
+FROM employees e RIGHT OUTER JOIN departments d
+ON (e.department_id = d.department_id);
+
+
+
 
