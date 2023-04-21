@@ -104,16 +104,25 @@ ON (e.department_id = d.department_id);
 -- The top level manager has position 1, this manager's subordinates position 2, their subordinates position 3, and so on.
 -- Start the listing with employee number 100.
 
-SELECT LEVEL AS "Position", e.last_name, PRIOR e.last_name AS "Manager name"
-FROM employees e START WITH e.employee_id = 100                                    -- NMC
-CONNECT BY PRIOR e.employee_id = e.manager_id;
+SELECT LEVEL AS POSITION, e.last_name, m.last_name AS MANAGER_NAME
+FROM employees e LEFT OUTER JOIN employees m
+ ON (e.manager_id = m.employee_id)
+START WITH e.employee_id = 100 -- (e.employee_id IS NULL) BETTER OPTIMIZATION
+CONNECTBY PRIOR e.employee_id = e.manager_id
 
 -- 17. Produce a list of the earliest hire date, the latest hire date, and the number of employees from the employees table
 SELECT MIN(hire_date) AS "Lowest", MAX(hire_date) AS "Highest", COUNT(employee_id) AS "No of employees"
 FROM employees;
 
 -- 18.Create a list of department names and the departmental costs (salaries added up).
--- Include only departments whose salary costs are between 15000 and 31000, and sort the listingby the cost.
+-- Include only departments whose salary costs are between 15000 and 31000, and sort the listing by the cost.
+SELECT DISTINCT d.DEPARTMENT_NAME, SUM(e.salary)
+FROM Employees e LEFT OUTER JOIN departments d
+ ON (d.department_id = e.department_id)
+GROUP BY d.department_name
+HAVING SUM(e.salary) BETWEEN 15000 AND 31000
+ORDER BY d.department_name
+
 
 -- 19. Show the highest average salary for the departments in the employees table.
 -- Round the result to the nearest whole number
