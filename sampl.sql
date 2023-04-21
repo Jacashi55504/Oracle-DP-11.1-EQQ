@@ -1,2 +1,2 @@
 SELECT * FROM STUDENTS
- by 
+connect by
