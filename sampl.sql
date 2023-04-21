@@ -100,6 +100,9 @@ SELECT e.last_name, d.department_name
 FROM employees e RIGHT OUTER JOIN departments d
 ON (e.department_id = d.department_id);
 
+-- 16. Create a treewalking list of every employee's last name, his manager's last name, and his position in the company.
+-- The top level manager has position 1, this manager's subordinates position 2, their subordinates position 3, and so on.
+-- Start the listing with employee number 100.
 
 
 -- 17. Produce a list of the earliest hire date, the latest hire date, and the number of employees from the employees table
