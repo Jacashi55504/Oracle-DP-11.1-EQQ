@@ -1,2 +1,2 @@
 SELECT * FROM STUDENTS
-connect BY PRIOR
+connect by PRIOR
