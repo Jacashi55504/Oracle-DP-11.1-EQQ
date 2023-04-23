@@ -111,11 +111,13 @@ START WITH e.employee_id = 100 -- (e.employee_id IS NULL) BETTER OPTIMIZATION
 CONNECTBY PRIOR e.employee_id = e.manager_id;
 
 -- 17. Produce a list of the earliest hire date, the latest hire date, and the number of employees from the employees table
+
 SELECT MIN(hire_date) AS "Lowest", MAX(hire_date) AS "Highest", COUNT(employee_id) AS "No of employees"
 FROM employees;
 
 -- 18.Create a list of department names and the departmental costs (salaries added up).
 -- Include only departments whose salary costs are between 15000 and 31000, and sort the listing by the cost.
+
 SELECT DISTINCT d.DEPARTMENT_NAME, SUM(e.salary)
 FROM Employees e LEFT OUTER JOIN departments d
  ON (d.department_id = e.department_id)
@@ -124,25 +126,87 @@ HAVING SUM(e.salary) BETWEEN 15000 AND 31000
 ORDER BY d.department_name;
 
 -- 19. Create a list of department names, the manager id, manager name (employee last name) of that department, and the average salary in each department.
+SELECT DISTINCT d.department_name, e.manager_id, m.last_name AS MANAGER_NAME, AVG(e.salary) AS AVG_DEPT_SALARY
+
+FROM employees e 
+INNER JOIN departments d
+ ON (e.department_id = d.department_id)
+LEFT OUTER JOIN employees m
+ ON (e.manager_id = m.employee_id)
+GROUP BY d.department_name, e.manager_id, m.last_name
+ORDER BY d.department_name;
 
 -- 20. Show the highest average salary for the departments in the employees table.
 -- Round the result to the nearest whole number
 
+SELECT ROUND(MAX(AVG(salary))) AS "Highest Avg Sal for Depts"
+FROM employees
+GROUP BY department_id;
+
 -- 21. Create a list of department names and their monthly costs (salaries added up).
+SELECT d.department_name AS "Department Name", SUM(e.salary) AS "Monthly Cost"
+
+From employees e INNER JOIN departments d
+ON (e.department_id = d.department_id)
+GROUP BY d.department_name;
 
 -- 22. Create a list of department names, and job_ids.
 -- Calculate the monthly salary cost for each job_id within a department, for each department, and for all departments added together.
 
+SELECT d.department_name AS "Department Name", e.job_id as "Job Title", SUM(e.salary) AS "Monthly Cost"
+From employees e INNER JOIN departments d
+ON (e.department_id = d.department_id)
+GROUP BY ROLLUP (d.department_name, e.job_id)
+ORDER BY d.department_name;
+
 -- 23. Create a list of department names, and job_ids.
 -- Calculate the monthly salary costfor each job_id within a department, for each department, for each group of job_ids irrespective of the department, and for all departments added together. (Hint: Cube)
 
+SELECT d.department_name AS "Department Name", e.job_id as "Job Title", SUM(e.salary) AS "Monthly Cost"
+From employees e INNER JOIN departments d
+ON (e.department_id = d.department_id)
+GROUP BY CUBE(d.department_name, e.job_id)
+ORDER BY d.department_name;
+
 -- 24. Expand the previous list to also show if the department_id or job_id was used to create the subtotals shown in the output. (Hint: Cube, Grouping)
+
+SELECT d.department_name AS "Department Name", e.job_id as "Job Title", SUM(e.salary) AS "Monthly Cost", CASE GROUPING(d.department_name) WHEN 1 THEN 'No' ELSE 'Yes' END AS "Department ID Used", CASE GROUPING(e.job_id) WHEN 1 THEN 'No' ELSE 'Yes' END AS "Job ID Used"
+From employees e INNER JOIN departments d
+ON (e.department_id = d.department_id)
+GROUP BY CUBE(d.department_name, e.job_id)
+ORDER BY d.department_name;
 
 -- 25. Create a list that includes the monthly salary costs for each job title within a department.
 -- In the same list, display the monthly salary cost per city. (Hint: Grouping Sets)
+
+SELECT d.department_name, e.job_id, l.city, SUM(e.salary)
+From employees e INNER JOIN departments d
+ ON (e.department_id = d.department_id)
+INNER JOIN locations l
+ ON (d.location_id = l.location_id)
+GROUP BY GROUPING SETS((d.department_name, e.job_id), (l.city))
+ORDER BY d.department_name, l.city;
 
 -- 26. Create a list of employee names as shown and department ids.
 -- In the same report, list the department ids and department names. And finally, list the cities.
 -- The rows should not be joined, just listed in the same report. (Hint: Union)
 
+SELECT SUBSTR(first_name, 1, 1) || ' ' || last_name AS "Employee Name", department_id AS "Department ID", NULL AS "Department Name", NULL as "City"
+FROM employees
+UNION
+SELECT NULL, department_id, department_name, NULL
+FROM departments
+UNION
+SELECT NULL, NULL, NULL, city
+FROM locations
+ORDER BY 1, 2;
+
 -- 27. Create a list of each employee's first initial and last name, salary, and department name for each employee earning more than the average for his department.
+
+SELECT SUBSTR(first_name, 1, 1) || ' ' || last_name AS "Employee", salary AS "Salary", department_name AS "Department Name"
+FROM employees e JOIN departments d ON (e.department_id = d.department_id)
+WHERE salary > (SELECT AVG(salary)
+ FROM employees
+ WHERE department_id = e.department_id
+ GROUP BY department_id); 
+ 
